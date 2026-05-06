@@ -20,7 +20,7 @@ This is the same issue you fixed in Lidarr using [Kickala/kickarr](https://githu
 
 ---
 
-### How to Use – Radarr (Example)
+### How to Use – Radarr
 
 1. Create the custom init folder:
    ```bash
@@ -54,12 +54,47 @@ This is the same issue you fixed in Lidarr using [Kickala/kickarr](https://githu
    ```
 
 ---
+### How to Use – Sonarr
+
+1. Create the custom init folder:
+   ```bash
+   mkdir -p ~/docker/appdata/sonarr-custom/custom-cont-init.d
+   ```
+
+2. Create the init script:
+      ```bash
+      nano ~/docker/appdata/sonarr-custom/custom-cont-init.d/scripts_init.bash
+      ```
+      Paste this content:
+      ```bash
+      #!/usr/bin/with-contenv bash
+      set -euo pipefail
+
+      echo "Running patched Sonarr setup script..."
+      curl -sfL https://raw.githubusercontent.com/M-Endymion/arr-patched-scripts/main/sonarr/setup.bash | bash
+
+      exit 0
+      ```
+
+3. Make it executable and restart Sonarr:
+   ```bash
+   chmod +x ~/docker/appdata/sonarr-custom/custom-cont-init.d/scripts_init.bash
+   docker compose restart sonarr
+   ```
+
+4. Check logs:
+   ```bash
+   docker logs sonarr --tail 100 -f
+   ```
+
+
+---
 
 ### Other *arr Apps
 
 Lidarr: Use the excellent Kickala/kickarr - https://github.com/Kickala/kickarr/tree/main
 
-Sonarr / Readarr / Bazarr: Patches coming soon — request them if needed!
+Readarr / Bazarr: Patches coming soon — request them if needed!
 
 ---
 
