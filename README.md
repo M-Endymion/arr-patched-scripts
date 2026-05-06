@@ -25,3 +25,51 @@ This is the same issue you fixed in Lidarr using [Kickala/kickarr](https://githu
 1. Create the custom init folder:
    ```bash
    mkdir -p ~/docker/appdata/radarr-custom/custom-cont-init.d
+   ```
+
+2. Create the init script:
+      ```bash
+      nano ~/docker/appdata/radarr-custom/custom-cont-init.d/scripts_init.bash
+      ```
+      Paste this content:
+      ```bash
+      #!/usr/bin/with-contenv bash
+      set -euo pipefail
+
+      echo "Running patched Radarr setup script..."
+      curl -sfL https://raw.githubusercontent.com/M-Endymion/arr-patched-scripts/main/radarr/setup.bash | bash
+
+      exit 0
+      ```
+
+3. Make it executable and restart Radarr:
+   ```bash
+   chmod +x ~/docker/appdata/radarr-custom/custom-cont-init.d/scripts_init.bash
+   docker compose restart radarr
+   ```
+
+4. Check logs:
+   ```bash
+   docker logs radarr --tail 100 -f
+   ```
+
+---
+
+### Other *arr Apps
+
+Lidarr: Use the excellent Kickala/kickarr - https://github.com/Kickala/kickarr/tree/main
+
+Sonarr / Readarr / Bazarr: Patches coming soon — request them if needed!
+
+---
+
+### Credits
+
+Original scripts by RandomNinjaAtk/arr-scripts
+Lidarr patch inspiration from Kickala/kickarr
+Radarr patch created and maintained by M-Endymion
+
+⭐ Feel free to star this repo if it helped you!
+
+### License
+MIT - Free to use, modify, and share.
