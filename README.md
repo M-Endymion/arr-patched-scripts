@@ -10,7 +10,7 @@ The original setup scripts often fail in Docker because:
 - Permission problems with the `abc` user
 - Unbound variable errors under `set -euo pipefail`
 
-This is the same issue you fixed in Lidarr using [Kickala/kickarr](https://github.com/Kickala/kickarr).
+This is the same issue fixed in Lidarr using [Kickala/kickarr](https://github.com/Kickala/kickarr).
 
 ### The Fix (included in these patched versions)
 - Robust Python XML parser for `getArrAppInfo()`
