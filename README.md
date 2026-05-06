@@ -1,6 +1,6 @@
 # arr-patched-scripts
 
-**Patched `setup.bash` scripts for the *arr suite (Radarr, Lidarr, Sonarr, etc.)**
+*Patched `setup.bash` scripts for the *arr suite (Radarr, Lidarr, Sonarr, etc.)**
 
 Fixes the common Docker issues when using [RandomNinjaAtk/arr-scripts](https://github.com/RandomNinjaAtk/arr-scripts) with linuxserver.io containers.
 
