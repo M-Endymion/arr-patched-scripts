@@ -108,5 +108,7 @@ Radarr patch created and maintained by M-Endymion
 
 ⭐ Feel free to star this repo if it helped you!
 
+---
+
 ### License
 MIT - Free to use, modify, and share.
