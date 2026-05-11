@@ -4,6 +4,16 @@
 
 Fixes the common Docker issues when using [RandomNinjaAtk/arr-scripts](https://github.com/RandomNinjaAtk/arr-scripts) with linuxserver.io containers.
 
+## Important Note
+
+This repository contains **patched/forked** versions of the excellent [arr-scripts](https://github.com/RandomNinjaAtk/arr-scripts) by RandomNinjaAtk (merabi14).
+
+The original scripts are licensed under [GPL-3.0](https://github.com/RandomNinjaAtk/arr-scripts/blob/main/LICENSE). These patches are derivative works and are also released under GPL-3.0.
+
+**All credit for the core functionality goes to the original author.**
+
+---
+
 ### The Problem This Fixes
 The original setup scripts often fail in Docker because:
 - The `getArrAppInfo` function cannot reliably read `/config/config.xml`
