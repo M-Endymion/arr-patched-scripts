@@ -104,7 +104,7 @@ Original scripts by RandomNinjaAtk/arr-scripts
 
 Lidarr patch inspiration from Kickala/kickarr
 
-Radarr patch created and maintained by M-Endymion
+Radarr / Sonarr patch created and maintained by M-Endymion
 
 ⭐ Feel free to star this repo if it helped you!
 
