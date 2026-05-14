@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="https://raw.githubusercontent.com/M-Endymion/arr-patched-scripts/main/thumbnail-arr.png" alt="arr-patched-scripts Banner" />
+</div>
+
+<br>
+
 # arr-patched-scripts
 
 *Patched `setup.bash` scripts for the *arr suite (Radarr, Lidarr, Sonarr, etc.)**
