@@ -1,130 +1,102 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/M-Endymion/arr-patched-scripts/main/thumbnail-arr.png" alt="arr-patched-scripts Banner" />
+  <img src="https://raw.githubusercontent.com/M-Endymion/arr-patched-scripts/main/thumbnail-arr.png" alt="arr-patched-scripts Banner" width="100%" />
 </div>
 
 <br>
 
 # arr-patched-scripts
 
-*Patched `setup.bash` scripts for the *arr suite (Radarr, Lidarr, Sonarr, etc.)**
+**Patched setup scripts for the arr suite (Radarr, Sonarr, Lidarr, etc.) in Docker**
 
-Fixes the common Docker issues when using [RandomNinjaAtk/arr-scripts](https://github.com/RandomNinjaAtk/arr-scripts) with linuxserver.io containers.
+Fixes common permission, XML parsing, and stability issues when using linuxserver.io containers.
 
-## Important Note
-
-This repository contains **patched/forked** versions of the excellent [arr-scripts](https://github.com/RandomNinjaAtk/arr-scripts) by RandomNinjaAtk (merabi14).
-
-The original scripts are licensed under [GPL-3.0](https://github.com/RandomNinjaAtk/arr-scripts/blob/main/LICENSE). These patches are derivative works and are also released under GPL-3.0.
-
-**All credit for the core functionality goes to the original author.**
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Shell](https://img.shields.io/badge/Shell-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
 ---
 
-### The Problem This Fixes
-The original setup scripts often fail in Docker because:
-- The `getArrAppInfo` function cannot reliably read `/config/config.xml`
-- Permission problems with the `abc` user
-- Unbound variable errors under `set -euo pipefail`
+## The Problem It Solves
 
-This is the same issue fixed in Lidarr using [Kickala/kickarr](https://github.com/Kickala/kickarr).
+Original [RandomNinjaAtk/arr-scripts](https://github.com/RandomNinjaAtk/arr-scripts) often fail in Docker due to:
+- `getArrAppInfo` unable to read `/config/config.xml`
+- Permission issues with the `abc` user
+- Unbound variable errors under strict bash settings
 
-### The Fix (included in these patched versions)
-- Robust Python XML parser for `getArrAppInfo()`
-- Safe permissions (`abc:users` + correct chmod)
-- Extra build tools needed for Python packages
-- Cleaner code and better error handling
+These patched versions resolve those issues while keeping the excellent original functionality.
 
 ---
 
-### How to Use – Radarr
+## Included Patches
 
-1. Create the custom init folder:
-   ```bash
-   mkdir -p ~/docker/appdata/radarr-custom/custom-cont-init.d
-   ```
+- **Radarr** — `radarr/setup.bash`
+- **Sonarr** — `sonarr/setup.bash`
 
-2. Create the init script:
-      ```bash
-      nano ~/docker/appdata/radarr-custom/custom-cont-init.d/scripts_init.bash
-      ```
-      Paste this content:
-      ```bash
-      #!/usr/bin/with-contenv bash
-      set -euo pipefail
-
-      echo "Running patched Radarr setup script..."
-      curl -sfL https://raw.githubusercontent.com/M-Endymion/arr-patched-scripts/main/radarr/setup.bash | bash
-
-      exit 0
-      ```
-
-3. Make it executable and restart Radarr:
-   ```bash
-   chmod +x ~/docker/appdata/radarr-custom/custom-cont-init.d/scripts_init.bash
-   docker compose restart radarr
-   ```
-
-4. Check logs:
-   ```bash
-   docker logs radarr --tail 100 -f
-   ```
+(Lidarr: Use the excellent [Kickala/kickarr](https://github.com/Kickala/kickarr) instead)
 
 ---
-### How to Use – Sonarr
 
-1. Create the custom init folder:
-   ```bash
-   mkdir -p ~/docker/appdata/sonarr-custom/custom-cont-init.d
-   ```
+## How to Use (Radarr Example)
 
-2. Create the init script:
-      ```bash
-      nano ~/docker/appdata/sonarr-custom/custom-cont-init.d/scripts_init.bash
-      ```
-      Paste this content:
-      ```bash
-      #!/usr/bin/with-contenv bash
-      set -euo pipefail
+```bash
+# 1. Create custom init folder
+mkdir -p ~/docker/appdata/radarr-custom/custom-cont-init.d
 
-      echo "Running patched Sonarr setup script..."
-      curl -sfL https://raw.githubusercontent.com/M-Endymion/arr-patched-scripts/main/sonarr/setup.bash | bash
+# 2. Create the init script
+cat > ~/docker/appdata/radarr-custom/custom-cont-init.d/scripts_init.bash << 'EOF'
+#!/usr/bin/with-contenv bash
+set -euo pipefail
 
-      exit 0
-      ```
+echo "🚀 Running patched Radarr setup script..."
+curl -sfL https://raw.githubusercontent.com/M-Endymion/arr-patched-scripts/main/radarr/setup.bash | bash
 
-3. Make it executable and restart Sonarr:
-   ```bash
-   chmod +x ~/docker/appdata/sonarr-custom/custom-cont-init.d/scripts_init.bash
-   docker compose restart sonarr
-   ```
+exit 0
+EOF
+
+# 3. Make executable and restart
+chmod +x ~/docker/appdata/radarr-custom/custom-cont-init.d/scripts_init.bash
+docker compose restart radarr
 
 4. Check logs:
    ```bash
    docker logs sonarr --tail 100 -f
    ```
 
+Repeat similar steps for Sonarr.
 
 ---
 
-### Other *arr Apps
+### Key Fixes Included
 
-Lidarr: Use the excellent Kickala/kickarr - https://github.com/Kickala/kickarr/tree/main
-
-Readarr / Bazarr: Patches coming soon — request them if needed!
+- Robust Python XML parser for ```getArrAppInfo()```
+- Safe permission handling ```(abc:users)```
+- Additional build tools for Python packages
+- Cleaner error handling and logging
 
 ---
 
 ### Credits
 
-Original scripts by RandomNinjaAtk/arr-scripts
+- Original scripts: RandomNinjaAtk/arr-scripts
+- Inspiration from Kickala/kickarr
+- Patches & maintenance: M-Endymion
 
-Lidarr patch inspiration from Kickala/kickarr
-
-Radarr / Sonarr patch created and maintained by M-Endymion
-
-⭐ Feel free to star this repo if it helped you!
+All credit for core functionality goes to the original authors.
 
 ---
 
-### License
-MIT - Free to use, modify, and share.
+### About the Author
+
+**Jason Ray (M-Endymion)**
+
+IT Professional specializing in automation, Docker, and self-hosted infrastructure.
+
+This repo demonstrates practical troubleshooting and scripting skills that transfer directly to enterprise DevOps and automation roles.
+- LinkedIn: Jason Ray
+- Open to opportunities
+
+**Last Updated:** May 17, 2026
+License: MIT (Patches) — Original works remain under GPL-3.0
+
+---
+
